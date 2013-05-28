@@ -1,7 +1,7 @@
 xmlrpc.js
 =========
 
-This is a tiny JavaScript library that allows you to connect to XML-RPC services (e. g. WordPress) from within the browser using AJAX requests. Due to the AJAX functionality and isArray checks the library requires a jQuery-style library that implements $.ajax() and $.isArray().
+This is a tiny JavaScript library that allows you to connect to [XML-RPC](http://en.wikipedia.org/wiki/XML-RPC) services (e. g. WordPress) from within the browser using AJAX requests. Due to the AJAX functionality and isArray checks the library requires a jQuery-style library that implements $.ajax() and $.isArray().
 
 Same-Origin-Policy
 ------------------
