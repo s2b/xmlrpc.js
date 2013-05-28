@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>xmlrpc.js demo</title>
+	</head>
+	<body>
+
+		<form action="#" method="post" id="form">
+			<fieldset>
+				<legend>Create new post at WordPress.com</legend>
+				<label>
+					Post title:
+					<input type="text" id="title" />
+				</label>
+				<br />
+				<label>
+					Post text:
+					<textarea name="post" id="post" cols="30" rows="10"></textarea>
+				</label>
+				<br />
+				<button type="submit">Submit post</button>
+			</fieldset>
+		</form>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="../xmlrpc.js"></script>
+		<script>
+			// Change your account data here
+			var url = 'https://myblog.wordpress.com/xmlrpc.php', // Service URL
+				user = 'myblog', // Username
+				password = 'mypassword'; // Password
+
+			$(document).ready(function ($) {
+				$('#form').on('submit', function (e) {
+					// Prevent default form action
+					e.preventDefault();
+
+					// Fetch form data
+					var $this = $(this),
+						title = $this.find('#title').val(),
+						post = $this.find('#post').val(),
+						service;
+
+					// Very basic validation
+					if (!post || !title) {
+						return false;
+					}
+
+					// Initialize service object
+					service = new xmlrpc(
+						url,
+						function (data) {
+							// Here you could check the response data
+
+							alert('The blog post was added to your drafts successfully!');
+						},
+						function () {
+							alert('An error occured! Please check your browser settings and account information and try again.');
+						}
+					);
+
+					// Publish post
+					// See: http://codex.wordpress.org/XML-RPC_WordPress_API/Posts
+					service.fetch('wp.newPost', [
+						0,
+						user,
+						password,
+						{
+							post_title: title,
+							post_content: post
+						}
+					]);
+
+					return false;
+				});
+			});
+		</script>
+		
+	</body>
+</html>
